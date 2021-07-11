@@ -1,5 +1,6 @@
 import React, {useState} from react;
 import {Context} from "../Context"
+import PropTypes from "prop-types"
 
 function Image({className, img}) {
     const [hovered, setHovered] = useState(false)
@@ -7,7 +8,7 @@ function Image({className, img}) {
 
     function heartIcon() {
         if(img.isFavorite) {
-            return <i className="ri-heart-fill favorite"></i>
+            return <i className="ri-heart-fill favorite" onClick={() => toggleFavorite(img.id)}></i>
         } else if (hovered) {
             return <i className="ri-heart-line favorite" onClick={() => toggleFavorite(img.id)}></i>
         }
@@ -28,6 +29,15 @@ function Image({className, img}) {
         {cartIcon}
         </div>
     )
+}
+
+Image.propTypes = {
+    className: propTypes.string,
+    img: propTypes.shape({
+        id: propTypes.string.isRequired,
+        url: propTypes.string.isRequired,
+        isFavorite: propTypes.bool,
+    }),
 }
 
 export default Image
